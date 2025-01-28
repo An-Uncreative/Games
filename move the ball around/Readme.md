@@ -7,6 +7,7 @@ This is a simple Python game that utilizes the Pygame library for rendering grap
 ## Files
 
 - `main.py`: Contains the main game loop, event handling, and rendering logic. It initializes the game, handles user input for movement, and draws the game elements on the screen. The game starts upon a mouse click, which removes the background image.
+The use of the arrow keys on the keyboard moves the ball around the screen.
 - `assets/background.png`: The background image used in the game, which will be removed from the display when the user clicks to start the game.
 
 ## Requirements
