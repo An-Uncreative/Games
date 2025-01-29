@@ -2,7 +2,7 @@
 
 # Python Game Project
 
-This is a simple Python game that utilizes the Pygame library for rendering graphics and handling user input.
+This is a simple Python game that utilizes the Pygame library for rendering graphics and handling user input. It also makes use of object oriented programming to put buttons on the screen for starting and exiting the game.
 
 ## Files
 
