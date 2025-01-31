@@ -21,3 +21,10 @@ class Dino :
             self.position.y -= self.speed
         if pygame.key.get_pressed()[pygame.K_DOWN] :
             self.position.y += self.speed
+
+    def hitbox(self):
+        return self.image.get_rect(topleft = (self.position.x, self.position.y))
+    
+    def collision(self, window, is_collide):
+        if is_collide:
+            pygame.draw.rect(window, 'red', self.hitbox(), 3)
