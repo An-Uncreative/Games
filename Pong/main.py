@@ -5,7 +5,7 @@ pygame.init()
 #Functions
 def resetball() :
     global ball_speedx, ball_speedy
-    ball.x = window_width//2
+    ball.x = window_width//2 - 10
     ball.y = random.randint(10, 700)
     ball_speedx *= random.choice([-1,1])
     ball_speedy *= random.choice([-1,1])
@@ -97,6 +97,14 @@ while True :
                 game_started = True
                 ball_speedx = 6
                 ball_speedy = 6
+            if event.key == pygame.K_ESCAPE :
+                game_started = False
+                # ball_speedx = 0
+                # ball_speedy = 0
+                computer_score = 0
+                player_score = 0
+                computer_paddle.midleft = (0, window_height // 2)
+                resetball()
             if event.key == pygame.K_DOWN :
                 player_paddlespeed = 7
             if event.key == pygame.K_UP :
