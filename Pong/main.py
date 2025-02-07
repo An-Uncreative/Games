@@ -1,8 +1,27 @@
-import pygame, sys
+import pygame, sys, random
 
 pygame.init()
 
 #Functions
+def resetball() :
+    global ball_speedx, ball_speedy
+    ball.x = window_width//2
+    ball.y = random.randint(10, 700)
+    ball_speedx *= random.choice([-1,1])
+    ball_speedy *= random.choice([-1,1])
+
+def scoreline(player):
+    global computer_score, player_score
+    global ball_speedx, ball_speedy
+    if player == 'player' :
+        player_score += 1
+    if player == 'computer' :
+        computer_score += 1
+    # ball.center = (window_width // 2, window_height // 2)
+    # ball_speedx *= -1
+    # ball_speedy *= -1
+    resetball()
+
 def ball_movement():
     global ball_speedx, ball_speedy
     ball.x += ball_speedx
@@ -10,8 +29,11 @@ def ball_movement():
 
     if ball.top <= 0 or ball.bottom >= window_height :
         ball_speedy *= -1
-    if ball.left <= 0 or ball.right >= window_width :
-        ball_speedx *= -1
+    if ball.left <= 0 :
+        scoreline('player')
+    
+    if ball.right >= window_width :
+        scoreline("computer")
     
     if ball.colliderect(player_paddle) or ball.colliderect(computer_paddle) :
         ball_speedx *= -1
@@ -46,6 +68,9 @@ ball_speedy = 0
 player_paddlespeed = 0
 computer_paddlespeed = 0
 game_started = False
+computer_score, player_score = 0, 0
+
+score_font = pygame.font.Font(None, 80)
 
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Pong")
@@ -86,6 +111,10 @@ while True :
         computer_paddle_movement()
 
     window.fill('black')
+    computer_board = score_font.render(str(computer_score), True, 'white')
+    player_board = score_font.render(str(player_score), True, 'white')
+    window.blit(computer_board, (window_width//4, 30))
+    window.blit(player_board, (3*window_width//4, 30))
     #Draw the shapes
     pygame.draw.aaline(window, 'white', (window_width // 2, 0), (window_width // 2, window_height))
     pygame.draw.ellipse(window, (255, 255, 255), ball)
