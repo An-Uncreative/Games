@@ -52,9 +52,9 @@ def computer_paddle_movement():
     # if computer_paddle.centery == ball.centery :
     #     computer_paddlespeed = 0
     if ball.centery <= computer_paddle.centery :
-        computer_paddlespeed = -6
+        computer_paddlespeed = -5
     if ball.centery >= computer_paddle.centery :
-        computer_paddlespeed = 6
+        computer_paddlespeed = 5
 
     if computer_paddle.top <= 0 :
         computer_paddle.top = 0
