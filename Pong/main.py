@@ -1,12 +1,13 @@
 import pygame, sys, random
+from button import Button
 
 pygame.init()
 
 #Functions
 def resetball() :
     global ball_speedx, ball_speedy
-    ball.x = window_width//2 - 10
-    ball.y = random.randint(10, 700)
+    ball.center = (window_width//2, random.randint(10, 700))
+    # ball.y = random.randint(10, 700)
     ball_speedx *= random.choice([-1,1])
     ball_speedy *= random.choice([-1,1])
 
@@ -69,6 +70,11 @@ player_paddlespeed = 0
 computer_paddlespeed = 0
 game_started = False
 computer_score, player_score = 0, 0
+is_background = True
+background = Button('graphics/background.png', (0, 0), 1.5)
+start_button = Button("graphics/start_button.png", ( 450, 150), 0.65)
+exit_button = Button("graphics/exit_button.png", (450, 300), 0.65)
+text_font = pygame.font.Font(None, 80)
 
 score_font = pygame.font.Font(None, 80)
 
@@ -118,15 +124,28 @@ while True :
         ball_movement()
         computer_paddle_movement()
 
-    window.fill('black')
-    computer_board = score_font.render(str(computer_score), True, 'white')
-    player_board = score_font.render(str(player_score), True, 'white')
-    window.blit(computer_board, (window_width//4, 30))
-    window.blit(player_board, (3*window_width//4, 30))
-    #Draw the shapes
-    pygame.draw.aaline(window, 'white', (window_width // 2, 0), (window_width // 2, window_height))
-    pygame.draw.ellipse(window, (255, 255, 255), ball)
-    pygame.draw.rect(window, 'white', computer_paddle)
-    pygame.draw.rect(window, (255, 255, 255), player_paddle)
+    if exit_button.is_pressed() :
+        pygame.quit()
+        sys.exit()
+
+    if start_button.is_pressed() :
+        is_background = False
+
+    if not is_background :
+        window.fill('black')
+        computer_board = score_font.render(str(computer_score), True, 'white')
+        player_board = score_font.render(str(player_score), True, 'white')
+        window.blit(computer_board, (window_width//4, 30))
+        window.blit(player_board, (3*window_width//4, 30))
+        #Draw the shapes
+        pygame.draw.aaline(window, 'white', (window_width // 2, 0), (window_width // 2, window_height))
+        pygame.draw.ellipse(window, (255, 255, 255), ball)
+        pygame.draw.rect(window, 'white', computer_paddle)
+        pygame.draw.rect(window, (255, 255, 255), player_paddle)
+    else :
+        background.draw(window)
+        start_button.draw(window)
+        exit_button.draw(window)
+
     pygame.display.flip()
     timing.tick(60)
